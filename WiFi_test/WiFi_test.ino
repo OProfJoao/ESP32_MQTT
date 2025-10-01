@@ -3,21 +3,19 @@ const String SSID = "iPhone";
 const String PSWD = "iot_sul_123";
 
 void scanLocalNetworks();
+void connectToWifi();
 
 void setup() {
   Serial.begin(115200);
   scanLocalNetworks();
-  Serial.println("Iniciando conexão com rede WiFi");
-  WiFi.begin(SSID,PSWD);
-  while(WiFi.status() != WL_CONNECTED){
-    Serial.print(".");
-    delay(200);
-  }
-  Serial.println("\nConectado!");
+  connectToWifi();
 }
 
 void loop() {
-  
+  if(WiFi.status() != WL_CONNECTED){
+  	Serial.println("Conexão perdida!");
+  	connectToWifi();
+  }
 }
 
 void scanLocalNetworks(){
@@ -33,4 +31,14 @@ void scanLocalNetworks(){
       Serial.printf("%d - %s | %d db\n", net, WiFi.SSID(net), WiFi.RSSI(net));
     }
   }
+}
+
+void connectToWifi(){
+	Serial.println("Iniciando conexão com rede WiFi");
+	WiFi.begin(SSID,PSWD);
+    while(WiFi.status() != WL_CONNECTED){
+      Serial.print(".");
+      delay(200);
+    }
+    Serial.println("\nConectado!");
 }
