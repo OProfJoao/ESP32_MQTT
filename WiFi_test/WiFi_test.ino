@@ -7,7 +7,7 @@ void connectToWifi();
 
 void setup() {
   Serial.begin(115200);
-  scanLocalNetworks();
+  //scanLocalNetworks();
   connectToWifi();
 }
 
