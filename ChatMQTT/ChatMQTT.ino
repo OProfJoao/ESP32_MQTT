@@ -20,6 +20,7 @@ void setup() {
 }
 
 void loop() {
+
   if(WiFi.status() != WL_CONNECTED){
     Serial.println("Conexão WiFi perdida!");
     connectToWifi();
@@ -30,8 +31,8 @@ void loop() {
   }
   if(Serial.available()>0){
     String msg = Serial.readStringUntil('\n');
-    msg = "joao: "+msg;
-    mqttClient.publish("AulaIoTSul/Chat",msg.c_str());
+    msg = "Joao: "+msg;
+    mqttClient.publish("AulaIoTSul/Chat",msg.c_str()); //envia msgs
   }
 
   mqttClient.loop();
@@ -48,7 +49,17 @@ void connectToBroker(){
     Serial.print(".");
     delay(2000);
   }
+  mqttClient.subscribe("AulaIoTSul/Chat");
+  mqttClient.setCallback(callback);
   Serial.println("Conectado com sucesso!");
+}
+
+void callback(char* topic, byte* payload, unsigned long length){
+  String resposta = "";
+  for(int i = 0; i < length; i++){
+    resposta += (char) payload[i];
+  }
+  Serial.println(resposta);
 }
 
 void connectToWifi(){
