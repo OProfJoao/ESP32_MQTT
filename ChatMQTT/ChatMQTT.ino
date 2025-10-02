@@ -64,10 +64,10 @@ void callback(char* topic, byte* payload, unsigned long length){
 
 void connectToWifi(){
   Serial.println("Iniciando conexão com rede WiFi");
-    while(WiFi.status() != WL_CONNECTED){
-      WiFi.begin(SSID,PSWD);
-      Serial.print(".");
-      delay(2000);
-    }
-    Serial.println("\nConectado!");
+  while(WiFi.status() != WL_CONNECTED){
+    WiFi.begin(SSID,PSWD);
+    Serial.print(".");
+    delay(2000);
+  }
+  Serial.println("\nConectado!");
 }
