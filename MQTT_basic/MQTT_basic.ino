@@ -18,6 +18,7 @@ void setup() {
   Serial.println("Conectando ao broker...");
   mqttClient.setServer(brokerUrl.c_str(),port);
   String userId = "ESP-JOAO";
+  userId += String(random(0xffff), HEX);
   mqttClient.connect(userId.c_str());
   while(!mqttClient.connected()){
     Serial.println("Erro de conexão");
@@ -33,6 +34,9 @@ void loop() {
   }
   mqttClient.loop();
 }
+
+
+
 
 void connectToWifi(){
   Serial.println("Iniciando conexão com rede WiFi");
